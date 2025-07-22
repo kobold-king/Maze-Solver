@@ -1,5 +1,6 @@
 from tkinter import Tk, BOTH, Canvas
 from window import Window, Line, Point, Cell, Maze
+import sys
 
 def main():
 
@@ -27,8 +28,8 @@ def main():
     # C4.draw(300, 300, 400, 400)
 
     # C3.draw_move(C4)
-    num_rows = 30
-    num_cols = 30
+    num_rows = 20
+    num_cols = 20
     margin = 20
     screen_x = 1000
     screen_y = 1000
@@ -36,7 +37,15 @@ def main():
     cell_size_y = (screen_y - 2 * margin) / num_rows
     win = Window(screen_x, screen_y)
 
+    sys.setrecursionlimit(10000)
+
     maze = Maze(margin, margin, num_rows, num_cols, cell_size_x, cell_size_y, win, 10)
+    print("maze created")
+    is_solvable = maze.solve()
+    if not is_solvable:
+        print("maze can not be solved!")
+    else:
+        print("maze solved!")
 
     win.wait_for_close()
 
